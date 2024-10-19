@@ -1,7 +1,7 @@
 <html>
     <head>
         <link href="honda.css" rel="stylesheet" />
-        <script src="honda.js"></script>
+        <script src="base.js"></script>
     </head>
 
     <body>
@@ -12,15 +12,78 @@
         </br>
         <h2>Welcome to our flight tracker!</h2>
         <p>Below, enter the possiblities that you would like for your flight, and we will generate all possible flights for you to choose from!</p>
-        <button onclick = setUpArrays()>Launch</button>
+        <button onclick = >Launch</button>
+        <div id="depature-selections">
+            <p>Please select your departure locations</p>
+        </div>
+
+        <div id="arrivals-selections">
+            <p>Please select your arrival locations</p>
+        </div>
+
+        <div id="airline-selections">
+            <p>Please select your airline</p>
+        </div>
+
+        <div id="date-selections">
+            <p>Please select your date</p>
+        </div>
         <p id = "question1"></p>
         <p id = "question2"></p>
         <p id = "question3"></p>
         <p id = "question4"></p>
+
         
 
         
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+             initQ();
+    
+  async function setUpArrays(){
+    let url = "https://api.aviationstack.com/v1/flights?access_key=e4aef054101ea4a81119444431b60b03";
+    console.log(URL);
+    let response = await fetch(URL);
+    let responseJson = await response.json();
+    console.log(responseJson.data[1].flight_date);
+    var array;
+    
+    let length = responseJson[0].data.length;
+    for(let i = 0; i < length; i++){
+        for(let j = 0; 4; j++){
+            if(j == 0){
+                array[i][j] = responseJson[0].data[i].flight_date;
+            }
+            else if(j == 1){
+                array[i][j] = responseJson[0].data[i].departure.airport;
+            }
+            else if(j == 2){
+                array[i][j] = responseJson[0].data[i].arrival.airport;
+            }
+            else{
+                array[i][j] = responseJson[0].data[i].airline.name;
+            }
+        }
+    }
+
+
+}
+        </script>
     </body>
 </html>
