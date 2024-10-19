@@ -28,21 +28,24 @@
 
     let questionOneDiv = document.querySelector("#question1");
     questionOneDiv.innerHTML += "What airport(s) would you like to depart from?\n";
-    let questionTwoDiv = document.querySelector("#question2");
-    questionTwoDiv.innerHTML += "What airport(s) would you like to arrive in?\n";
-    let questionThreeDiv = document.querySelector("#question3");
-    questionThreeDiv.innerHTML += "What date(s) would you like to fly?\n";
-    let questionFourDiv = document.querySelector("#question4");
-    questionFourDiv.innerHTML += "What airline(s) would you like to fly with?";
-
     const departDiv = document.createElement("div");
     departDiv.classList.add("property");
+    let questionTwoDiv = document.querySelector("#question2");
+    questionTwoDiv.innerHTML += "What airport(s) would you like to arrive in?\n";
     const arriveDiv = document.createElement("div");
     arriveDiv.classList.add("property");
+    let questionThreeDiv = document.querySelector("#question3");
+    questionThreeDiv.innerHTML += "What date(s) would you like to fly?\n";
     const dateDiv = document.createElement("div");
     dateDiv.classList.add("property");
+    let questionFourDiv = document.querySelector("#question4");
+    questionFourDiv.innerHTML += "What airline(s) would you like to fly with?";
     const airlineDiv = document.createElement("div");
     airlineDiv.classList.add("property");
+    
+
+    
+    
 
     for(let k = 0; k < length; k++){
         let place1 = responseJson[0].data[k].departure.airport;
