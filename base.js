@@ -5,7 +5,7 @@ const twodArray = [
         "China Express Air",
         "Juzhou",
         "Shenzhen"
-    ],
+    ], 
     [
         "2024-10-20",
         "8463",
@@ -734,16 +734,19 @@ async function initQ(){
     const parsedArray  = twodArray;
 
     const uniqueParsedArray = [];
-    // Loop through each row of the input array
     for (let col = 0; col < parsedArray[0].length; col++) {
         const uniqueValues = new Set();
         for (const row of parsedArray) {
-            uniqueValues.add(row[col]);
-        }
-        uniqueParsedArray.push(Array.from(uniqueValues));
+            if(row[col] !== null){
+            const value = row[col].replaceAll(" ", "");//removes all spaces within value
+            uniqueValues.add(value.trim());
+            }
     }
+    uniqueParsedArray.push(Array.from(uniqueValues));
+}
 
     console.log(uniqueParsedArray);
+    console.log("fufb");
 
     // Get the div where the checkboxes will be inserted
     const departureContainer = document.getElementById('depature-selections');
@@ -763,8 +766,7 @@ async function initQ(){
         content = uniqueParsedArray[4][i];
         // Create a label for the checkbox
         const label = document.createElement('label');
-        label.innerHTML += `
-            <input type="checkbox" name="options" onclick=selectionClick(${i}) value="${i}">${content}`;
+        label.innerHTML += `<input type="checkbox" name="options" onclick=selectionClick(${i}) value="${i}">${content}`;
         departureContainer.appendChild(label);
         departureContainer.appendChild(document.createElement('br')); // Line break for spacing
     };
@@ -861,7 +863,7 @@ async function initQ(){
 
     
 
-    console.log(parsedArray);
+    //console.log(parsedArray);
 }
 
 function selectionClick(index){
