@@ -1,3 +1,68 @@
+ 
+//   async function setUpArrays(){
+//     let url = "https://api.aviationstack.com/v1/flights?access_key=e4aef054101ea4a81119444431b60b03";
+//     console.log(URL);
+//     let response = await fetch(URL);
+//     let responseJson = await response.json();
+//     console.log(responseJson);
+//     var array;
+    
+//     let length = responseJson[0].data.length;
+//     for(let i = 0; i < length; i++){
+//         for(let j = 0; 4; j++){
+//             if(j == 0){
+//                 array[i][j] = responseJson[0].data[i].flight_date;
+//             }
+//             else if(j == 1){
+//                 array[i][j] = responseJson[0].data[i].departure.airport;
+//             }
+//             else if(j == 2){
+//                 array[i][j] = responseJson[0].data[i].arrival.airport;
+//             }
+//             else{
+//                 array[i][j] = responseJson[0].data[i].airline.name;
+//             }
+//         }
+//     }
+
+//     let questionOneDiv = document.querySelector("#question1");
+//     questionOneDiv.innerHTML += "What airport(s) would you like to depart from?\n";
+//     const departDiv = document.createElement("div");
+//     departDiv.classList.add("property");
+//     let questionTwoDiv = document.querySelector("#question2");
+//     questionTwoDiv.innerHTML += "What airport(s) would you like to arrive in?\n";
+//     const arriveDiv = document.createElement("div");
+//     arriveDiv.classList.add("property");
+//     let questionThreeDiv = document.querySelector("#question3");
+//     questionThreeDiv.innerHTML += "What date(s) would you like to fly?\n";
+//     const dateDiv = document.createElement("div");
+//     dateDiv.classList.add("property");
+//     let questionFourDiv = document.querySelector("#question4");
+//     questionFourDiv.innerHTML += "What airline(s) would you like to fly with?";
+//     const airlineDiv = document.createElement("div");
+//     airlineDiv.classList.add("property");
+    
+
+    
+    
+
+//     for(let k = 0; k < length; k++){
+//         let place1 = responseJson[0].data[k].departure.airport;
+//         let place2 = responseJson[0].data[k].arrival.airport;
+//         let date = responseJson[0].data[k].flight_date;
+//         let airline = responseJson[0].data[k].airline.name;
+//         let display1 = "<button onClick = dispOne("+place1+")>" + place1 + "</button>";
+//         let display2 = "<button onClick = dispTwo("+place2+")>" + place2 + "</button>";
+//         let display3 = "<button onClick = dispThree("+date+")>" + date + "</button>";
+//         let display4 = "<button onClick = dispFour("+airline+")>" + airline + "</button>";
+//         departDiv.innerHTML += display1;
+//         arriveDiv.innerHTML += display2;
+//         dateDiv.innerHTML += display3;
+//         airlineDiv.innerHTMl += display4;
+//     }
+
+// }
+
 const twodArray = [
     [
         "2024-10-20",
@@ -5,7 +70,7 @@ const twodArray = [
         "China Express Air",
         "Juzhou",
         "Shenzhen"
-    ], 
+    ],
     [
         "2024-10-20",
         "8463",
@@ -702,7 +767,7 @@ const twodArray = [
 ]
 
 var api_key = "06f91d722db50b514651123072946071";
-
+const parsedArray  = twodArray;
 async function initQ(){
     console.log("initQ");
     const url = "https://api.aviationstack.com/v1/flights?access_key=06f91d722db50b514651123072946071";
@@ -731,8 +796,7 @@ async function initQ(){
     console.log(parsedArray);
     */
     
-    const parsedArray  = twodArray;
-
+    //parsedArray  = twodArray;
     const uniqueParsedArray = [];
     for (let col = 0; col < parsedArray[0].length; col++) {
         const uniqueValues = new Set();
@@ -758,7 +822,7 @@ async function initQ(){
     airlineContainer.setAttribute("style","display: none");
     dateContainer.setAttribute("style","display: none");
 
-    const checkboxMax = 10;
+    const checkboxMax = 100;
     
     
     // Generate checkboxes for departures
@@ -766,7 +830,8 @@ async function initQ(){
         content = uniqueParsedArray[4][i];
         // Create a label for the checkbox
         const label = document.createElement('label');
-        label.innerHTML += `<input type="checkbox" name="options" onclick=selectionClick(${i}) value="${i}">${content}`;
+        label.innerHTML += `
+            <input type="checkbox" name="options" onclick=dispOne("${content}") value="${i}">${content}`;
         departureContainer.appendChild(label);
         departureContainer.appendChild(document.createElement('br')); // Line break for spacing
     };
@@ -793,7 +858,7 @@ async function initQ(){
         // Create a label for the checkbox
         const label = document.createElement('label');
         label.innerHTML += `
-            <input type="checkbox" name="options" onclick=selectionClick(${i}) value="${i}">${content}`;
+            <input type="checkbox" name="options" onclick=dispTwo("${content}") value="${i}">${content}`;
             arrivalContainer.appendChild(label);
         arrivalContainer.appendChild(document.createElement('br')); // Line break for spacing
     };
@@ -819,7 +884,7 @@ async function initQ(){
         // Create a label for the checkbox
         const label = document.createElement('label');
         label.innerHTML += `
-            <input type="checkbox" name="options" onclick=selectionClick(${i}) value="${i}">${content}`;
+            <input type="checkbox" name="options" onclick=dispFour("${content}") value="${i}">${content}`;
             airlineContainer.appendChild(label);
         airlineContainer.appendChild(document.createElement('br')); // Line break for spacing
     };
@@ -841,13 +906,13 @@ async function initQ(){
 
 
 
-     // Generate checkboxes for arrivals
+     // Generate checkboxes for dates
      for(let i = 0; i<uniqueParsedArray[0].length & i<checkboxMax; i++){
         content = uniqueParsedArray[0][i];
         // Create a label for the checkbox
         const label = document.createElement('label');
         label.innerHTML += `
-            <input type="checkbox" name="options" onclick=selectionClick(${i}) value="${i}">${content}`;
+            <input type="checkbox" name="options" onclick=dispThree("${content}") value="${i}">${content}`;
             dateContainer.appendChild(label);
             dateContainer.appendChild(document.createElement('br')); // Line break for spacing
     };
@@ -863,10 +928,184 @@ async function initQ(){
 
     
 
-    //console.log(parsedArray);
+    console.log(parsedArray);
 }
 
 function selectionClick(index){
     console.log(index + " was clicked")
 }
 
+
+const departs = [];
+const arrivals = [];
+const dates = [];
+const airlines = [];
+
+function dispOne(place){
+    console.log("place");
+    departs.push(place);
+}
+
+function dispTwo(place){
+    arrivals.push(place);
+}
+
+function dispThree(date){
+    dates.push(date);
+}
+
+function dispFour(airline){
+    airlines.push(airline);
+}
+
+function generateFlights(){
+    console.log("generating");
+    let pref;
+    const departPreferences = [];
+    const arrivalPreferences = [];
+    const datePreferences = [];
+    const airlinePreferences = [];
+    // if(departs.length > 1){
+    //     let string = "You have selected the following departure locations: ";
+    //     for(let i = 0; i < departs.length - 1; i++){
+    //         string += departs[i] + ", ";
+    //     }
+    //     string += "and " + departs[departs.length - 1] + ". Please rank them from 1 to " + departs.length + " with 1 being the worst preference and " + departs.length + " having the highest preference";
+    //     alert("Please specify the preferences between the departure airports that you selected.\n" + string);
+    //     const departPreferences = [];
+    //     for(let j = 0; j < departs.length; j++){
+    //         pref = prompt("Enter the preference for " + departs[j]);
+    //         departPreferences.push(pref);
+    //     }
+    // }
+    // else if(departs.length == 1){
+    //     pref = 1;
+    //     departPreferences.push(pref);
+    // }
+
+    // if(arrivals.length > 1){
+    //     let string = "You have selected the following arrival locations: ";
+    //     for(let i = 0; i < arrivals.length - 1; i++){
+    //         string += arrivals[i] + ", ";
+    //     }
+    //     string += "and " + arrivals[arrivals.length - 1] + ". Please rank them from 1 to " + arrivals.length + " with 1 being the worst preference and " + arrivals.length + " having the highest preference";
+    //     alert("Please specify the preferences between the arrivals airports that you selected.\n" + string);
+    //     for(let j = 0; j < arrivals.length; j++){
+    //         pref = prompt("Enter the preference for " + arrivals[j]);
+    //         arrivalsPreferences.push(pref);
+    //     }
+    // }
+    // else if(arrivals.length == 1){
+    //     pref = 1;
+    //     arrivalsPreferences.push(pref);
+    // }
+
+    // if(dates.length > 1){
+    //     let string = "You have selected the following dates: ";
+    //     for(let i = 0; i < dates.length - 1; i++){
+    //         string += dates[i] + ", ";
+    //     }
+    //     string += "and " + dates[departs.length - 1] + ". Please rank them from 1 to " + dates.length + " with 1 being the worst preference and " + dates.length + " having the highest preference";
+    //     alert("Please specify the preferences between the dates that you selected.\n" + string);
+    //     for(let j = 0; j < departs.length; j++){
+    //         pref = prompt("Enter the preference for " + dates[j]);
+    //         datePreferences.push(pref);
+    //     }
+    // }
+    // else if(dates.length == 1){
+    //     pref = 1;
+    // //     datePreferences.push(pref);
+    // // }
+
+    // if(airlines.length > 1){
+    //     let string = "You have selected the following airlines to travel by: ";
+    //     for(let i = 0; i < airlines.length - 1; i++){
+    //         string += airlines[i] + ", ";
+    //     }
+    //     string += "and " + airlines[airlines.length - 1] + ". Please rank them from 1 to " + airlines.length + " with 1 being the worst preference and " + airlines.length + " having the highest preference";
+    //     alert("Please specify the preferences between the airlines that you selected.\n" + string);
+    //     for(let j = 0; j < airlines.length; j++){
+    //         pref = prompt("Enter the preference for " + airlines[j]);
+    //         airlinePreferences.push(pref);
+    //     }
+    // }
+    // else if(airlines.length == 1){
+    //     pref = 1;
+    //     airlinePreferences.push(pref);
+    // }
+
+    const scores = [];
+    for(let i = 0; i < parsedArray.length; i++){
+        let departure = parsedArray[i][4];
+        let arrival = parsedArray[i][3];
+        let date = parsedArray[i][0];
+        let airline = parsedArray[i][2];
+        let score = 0;
+        for(let j = 0; j < departs.length; j++){
+            if(departure === departs[j]){
+                score += 5;
+            }
+        }
+        for(let k = 0; k < arrivals.length; k++){
+            if(arrival === arrivals[k]){
+                score += 5;
+            }
+        }
+        for(let l = 0; l < dates.length; l++){
+            if(date === dates[l]){
+                score += 1;
+            }
+        }
+        for(let m = 0; m < airlines.length; m++){
+            if(airline === airlines[m]){
+                score += 1;
+            }
+        }
+        scores.push(score);
+
+    }
+
+    let firstScore = 0;
+    let secondScore = 0;
+    let thirdScore = 0;
+    let firstPos = -1;
+    let secondPos = -1;
+    let thirdPos = -1;
+    for(let a = 0; a < scores.length; a++){
+        if(scores[a] > firstScore){
+            thirdScore = secondScore;
+            thirdPos = secondPos;
+            secondScore = firstScore;
+            secondPos = firstPos;
+            firstScore = scores[a];
+            firstPos = a;
+        }
+        else if(scores[a] > secondScore){
+            thirdScore = secondScore;
+            thirdPos = secondPos;
+            secondScore = scores[a];
+            secondPos = a;
+        }
+        else if(scores[a] > thirdScore){
+            thirdScore = scores[a];
+            thirdPos = a;
+        }
+    }
+
+    let flightDiv = document.querySelector("#flights");
+    flightDiv.innerHTML += "Here are the flight(s) found which best meet your specifications: \n";
+    if(firstScore > 2){
+        flightDiv.innerHTML += "1. Flight number " + parsedArray[firstPos][1] + " leaves from " + parsedArray[firstPos][4] + " and arrives at " + parsedArray[firstPos][3] + " on " + parsedArray[firstPos][0] + " traveling by " + parsedArray[firstPos][2] + "\n";
+    }
+    if(secondScore > 2){
+        flightDiv.innerHTML += "2. Flight number " + parsedArray[secondPos][1] + " leaves from " + parsedArray[secondPos][4] + " and arrives at " + parsedArray[secondPos][3] + " on " + parsedArray[secondPos][0] + " traveling by " + parsedArray[secondPos][2] + "\n";
+    }
+    if(thirdScore > 2){
+        flightDiv.innerHTML += "3. Flight number " + parsedArray[thirdPos][1] + " leaves from " + parsedArray[thirdPos][4] + " and arrives at " + parsedArray[thirdPos][3] + " on " + parsedArray[thirdPos][0] + " traveling by " + parsedArray[thirdPos][2] + "\n";
+    }
+    if(firstScore <= 2 && secondScore <= 2 && thirdScore <= 2){
+        flightDiv.innerHTML += "There are no flights which have that departure and arrival. Please try again with broader answers" + "\n";
+    }
+   
+    
+}
