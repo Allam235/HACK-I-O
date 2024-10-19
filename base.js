@@ -959,7 +959,6 @@ function dispFour(airline){
 }
 
 function generateFlights(){
-    console.log("generating");
     let pref;
     const departPreferences = [];
     const arrivalPreferences = [];
@@ -1062,6 +1061,8 @@ function generateFlights(){
             }
         }
         scores.push(score);
+        
+        
 
     }
 
@@ -1094,16 +1095,16 @@ function generateFlights(){
 
     let flightDiv = document.querySelector("#flights");
     flightDiv.innerHTML += "Here are the flight(s) found which best meet your specifications: \n";
-    if(firstScore > 2){
+    if(firstScore > 7){
         flightDiv.innerHTML += "1. Flight number " + parsedArray[firstPos][1] + " leaves from " + parsedArray[firstPos][4] + " and arrives at " + parsedArray[firstPos][3] + " on " + parsedArray[firstPos][0] + " traveling by " + parsedArray[firstPos][2] + "\n";
     }
-    if(secondScore > 2){
+    if(secondScore > 7){
         flightDiv.innerHTML += "2. Flight number " + parsedArray[secondPos][1] + " leaves from " + parsedArray[secondPos][4] + " and arrives at " + parsedArray[secondPos][3] + " on " + parsedArray[secondPos][0] + " traveling by " + parsedArray[secondPos][2] + "\n";
     }
-    if(thirdScore > 2){
+    if(thirdScore > 7){
         flightDiv.innerHTML += "3. Flight number " + parsedArray[thirdPos][1] + " leaves from " + parsedArray[thirdPos][4] + " and arrives at " + parsedArray[thirdPos][3] + " on " + parsedArray[thirdPos][0] + " traveling by " + parsedArray[thirdPos][2] + "\n";
     }
-    if(firstScore <= 2 && secondScore <= 2 && thirdScore <= 2){
+    if(firstScore <= 7 && secondScore <= 7 && thirdScore <= 7){
         flightDiv.innerHTML += "There are no flights which have that departure and arrival. Please try again with broader answers" + "\n";
     }
    
